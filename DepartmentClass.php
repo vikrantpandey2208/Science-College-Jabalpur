@@ -1,6 +1,54 @@
 <?php
 require_once("ConnectionClass.php");
 
+/*
+* Created on Sat Oct 30 2021 2:32:18 pm
+*
+* File Name DepartmentClass.php
+* ============================================================
+* Program for .....
+* ============================================================
+*
+* Copyright (c) 2021 @Vikrant Pandey
+*/
+/*
+
+1 construct => create connection to db
+
+2 private CheckRedundancy(&$departmentName, &$departmentDescription)
+=> have same data :: true
+=> same data not exist :: false
+=> for checking refresh doubled data entry.
+
+3 public Create($departmentName, $departmentDescription)
+=> success :: insert_id
+=> fail :: false
+=>creates hod uses CheckRedundancy to check duplicate data.
+
+4 public Read($column, $whereColumn = "", $whereValue = "", $multiColumn = false)
+=> fail :: false
+=> success :: query resultset
+
+=>if param multicolumn == true selects columns which are in array in param column
+where column = value
+=> param column = '*'' select whole table
+=> param column = "all" select row with
+where column = value
+=> column = "column_name"
+select the column_name with
+where column = value
+
+5 public GetNextInsertId()
+=> returns the last inserted id of table
+
+6 public Update($setColumn, $setValue, $whereColumn, $whereValue)
+=> success :: true
+=> fail :: false
+=> updates the setColumn with setValue.
+where column = value
+*/
+
+
 class Department
 {
     public $connection;
@@ -42,15 +90,6 @@ class Department
             return false;
     }
 
-    /*
-    1-> Read full table when $column= * 
-        then not need of 2 and 3rd argument
-    2-> Read a column where = value
-        need all argument but returns only one value
-    3-> Read all columns value 
-        where = value
-
-    */
     public function Read($column, $whereColumn = "", $whereValue = "", $multiColumn = false)
     {
         $connection = $this->connection;
@@ -117,7 +156,7 @@ class Department
     1-> Set the new value to set column 
         where = value    
     */
-    public function Update($setColumn, $setValue, $whereColumn, $whereValue)
+    public function Update($setColumn, $setValue, $whereColumn, $whereValue): bool
     {
         $sql = "update department set {$setColumn} = ? where {$whereColumn} = ?;";
         $stmt = $this->connection->prepare($sql);

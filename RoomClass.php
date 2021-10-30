@@ -1,5 +1,5 @@
 <?php
-include 'ConnectionClass.php';
+require_once("ConnectionClass.php");
 
 class Room
 {
@@ -7,7 +7,8 @@ class Room
 
     function __construct()
     {
-        $this->connection = Connection();
+        $connectionObj = new ConnectionDb();
+        $this->connection = $connectionObj->Connect();
     }
 
     private function CheckRedundancy(&$roomNumber, &$roomName)

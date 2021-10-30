@@ -1,27 +1,42 @@
 <?php
 require_once("HodClass.php");
 require_once("DepartmentClass.php");
+require_once("EntityClass.php");
+require_once("UniversalClass.php");
 
 $hodObj = new Hod();
 $deptObj = new Department();
+$entityObj = new Entity();
+$universal = new Universal();
 
 $nextHodId = $hodObj->GetNextInsertId();
 $createResult = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['hod_create_submit'])) {
+    $data = array(
+        $_POST['hod_department_id'],
+        $_POST['hod_entity_id'],
 
-        if (isset($_POST['hod_name']) && isset($_POST['hod_desc'])) {
-            if ($insert_id = $hodObj->Create($_POST['hod_number'], $_POST['hod_name'], $_POST['hod_desc'])) {
-                $createResult = "Hod created successful <br>
+        $_POST['hod_name'],
+        $_POST['hod_mobile'],
+
+        $_POST['hod_email'],
+        $_POST['hod_address_line1'],
+
+        $_POST['hod_address_line2'],
+        $_POST['hod_desc'],
+    );
+
+    if ($_POST['hod_create_submit'] && $universal->CheckFormSet($data)) {
+        if ($insert_id = $hodObj->Create($data)) {
+            $createResult = "Hod created successful <br>
                                         Redirecting in 3sec <br>
                                         Hod Id : " . $insert_id;
-                header("refresh:3, url=hod_create.php");
-            } else {
-                $createResult = "Hod creation unsuccessfull <br>
+
+            header("refresh:3, url=hod_create.php");
+        } else {
+            $createResult = "Hod creation unsuccessfull <br>
                                     May be Hod already exists.;";
-            }
-            unset($_POST['hod_name']);
         }
     }
 }
@@ -137,6 +152,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="row">
                         <label for="hod_entity_id">Hod Entity ID : </label>
                         <select name="hod_entity_id" id="hod_entity_id">
+                            <?php
+                            if ($result = $entityObj->Read("entity_name", "HOD")) {
+                                while ($row = $result->fetch_assoc()) {
+                                    if ($row['entity_id'] == 100003)
+                                        echo "<option value=\"{$row['entity_id']}\" selected>{$row['entity_id']} - {$row['entity_name']}</option>";
+
+                                    else
+                                        echo "<option value=\"{$row['entity_id']}\">{$row['entity_id']} - {$row['entity_name']}</option>";
+                                }
+                            }
+                            ?>
 
                         </select>
                     </div>
@@ -162,13 +188,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="line_8">
                     <div class="row">
                         <label for="hod_address_line1">Adress Line 1 : </label>
-                        <input type="text" name="hod_address_line_1" id="hod_address_line_1">
+                        <input type="text" name="hod_address_line1" id="hod_address_line_1">
                     </div>
                 </div>
                 <div class="line_9">
                     <div class="row">
                         <label for="hod_address_line2">Adress Line 2 : </label>
-                        <input type="text" name="hod_address_line_2" id="hod_address_line_2">
+                        <input type="text" name="hod_address_line2" id="hod_address_line_2">
                     </div>
                 </div>
                 <div class="line_10">
@@ -183,13 +209,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="button">
 
-                            <button id="btn" type="submit" name="hod_create_submit">Submit Data Here</button>
+                            <button id="btn" type="submit" name="hod_create_submit" value="done">Submit Data
+                                Here</button>
                             <!-- <input type="submit" name="hod_create_submit" value="Submit Data Here"> -->
 
                         </div>
                     </div>
                 </div>
             </form>
+            <span>
+                <?php echo $createResult; ?>
+            </span>
         </div>
     </div>
 </body>
