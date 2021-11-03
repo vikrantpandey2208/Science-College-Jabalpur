@@ -1,57 +1,39 @@
 <?php
-require_once("ConnectionClass.php");
+require_once("ClassConnection.php");
+require_once("ClassDepartment.php");
 
 /*
-* Created on Sat Oct 30 2021 2:32:18 pm
+* Created on Sat Oct 30 2021 2:26:09 pm
 *
-* File Name DepartmentClass.php
+* File Name HodClass.php
 * ============================================================
-* Program for .....
+* Program for Hod table CRUD
 * ============================================================
 *
 * Copyright (c) 2021 @Vikrant Pandey
 */
+
 /*
-
-1 construct => create connection to db
-
-2 private CheckRedundancy(&$departmentName, &$departmentDescription)
+1 private CheckRedundancy(&$hodNumber, &$hodName)
 => have same data :: true
 => same data not exist :: false
 => for checking refresh doubled data entry.
 
-3 public Create($departmentName, $departmentDescription)
+2 public Create($hodNumber, $hodName, $hodDescription)
 => success :: insert_id
 => fail :: false
 =>creates hod uses CheckRedundancy to check duplicate data.
 
-4 public Read($column, $whereColumn = "", $whereValue = "", $multiColumn = false)
-=> fail :: false
-=> success :: query resultset
-
-=>if param multicolumn == true selects columns which are in array in param column
-where column = value
-=> param column = '*'' select whole table
-=> param column = "all" select row with
-where column = value
-=> column = "column_name"
-select the column_name with
-where column = value
-
-5 public GetNextInsertId()
+3 public GetNextInsertId()
 => returns the last inserted id of table
 
-6 public Update($setColumn, $setValue, $whereColumn, $whereValue)
-=> success :: true
-=> fail :: false
-=> updates the setColumn with setValue.
-where column = value
 */
 
 
-class Department
+class Hod
 {
     public $connection;
+    private $departmentObj = 0;
 
     function __construct()
     {
@@ -59,12 +41,13 @@ class Department
         $this->connection = $connectionObj->Connect();
     }
 
-    private function CheckRedundancy(&$departmentName, &$departmentDescription)
+
+    private function CheckRedundancy(&$hodDepartmentId, &$hodMobile)
     {
-        $sql = "select department_id from department where department_name = ? and department_desc= ? ; ";
+        $sql = "select hod_id from hod where hod_department_id = ? or hod_mobile= ? ; ";
         $stmt = $this->connection->prepare($sql);
 
-        $stmt->bind_param("ss", $departmentName, $departmentDescription);
+        $stmt->bind_param("ii", $hodDepartmentId, $hodMobile);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -73,19 +56,24 @@ class Department
         } else
             return false;
     }
-
-    public function Create($departmentName, $departmentDescription)
+    public function Create($data)
     {
+        $this->departmentObj = new Department();
 
-        if ($this->CheckRedundancy($departmentName, $departmentDescription)) {
+        if ($this->CheckRedundancy($data[0], $data[3])) {
             return false;
         }
 
-        $stmt = $this->connection->prepare("insert into department (department_name , department_desc) values (?,?);");
+        $sql = "insert into hod values (Null,?,?,?,?,?,?,?,?);";
+        $stmt = $this->connection->prepare($sql);
 
-        $stmt->bind_param("ss", $departmentName, $departmentDescription);
+        $stmt->bind_param("ssssssss", ...$data);
         if ($stmt->execute()) {
-            return $stmt->insert_id;
+
+            if ($this->departmentObj->Update("department_hod_id", $stmt->insert_id, "department_id", $data[0])) {
+                return $stmt->insert_id;
+            } else
+                return false;
         } else
             return false;
     }
@@ -103,7 +91,7 @@ class Department
             }
 
             $sql = rtrim($sql, ", ");
-            $sql .= " from department where {$whereColumn}  = ? ;";
+            $sql .= " from hod where {$whereColumn}  = ? ;";
             $stmt = $connection->prepare($sql);
             $stmt->bind_param("s", $whereValue);
         } else {
@@ -111,17 +99,17 @@ class Department
 
             switch ($column) {
                 case '*': {
-                        $stmt = $connection->prepare("select * from department;");
+                        $stmt = $connection->prepare("select * from hod;");
                         break;
                     }
                 case 'all': {
-                        $sql = "select * from department where {$whereColumn}  = ? ;";
+                        $sql = "select * from hod where {$whereColumn}  = ? ;";
                         $stmt = $connection->prepare($sql);
                         $stmt->bind_param("s", $whereValue);
                         break;
                     }
                 default: {
-                        $sql = "select {$column} from department where {$whereColumn} = ? ;";
+                        $sql = "select {$column} from hod where {$whereColumn} = ? ;";
                         $stmt = $connection->prepare($sql);
                         $stmt->bind_param("s", $whereValue);
                         break;
@@ -143,25 +131,13 @@ class Department
     public function GetNextInsertId()
     {
         $connection = $this->connection;
-        $sql = "select Max(department_id) from department ;";
+        $sql = "select Max(hod_id) from hod ;";
         $result =  $connection->query($sql);
 
         if ($result->num_rows > 0) {
-            return ((int)$result->fetch_assoc()['Max(department_id)']) + 1;
+            return ((int)$result->fetch_assoc()['Max(hod_id)']) + 1;
         } else {
             return false;
         }
-    }
-    /*
-    1-> Set the new value to set column 
-        where = value    
-    */
-    public function Update($setColumn, $setValue, $whereColumn, $whereValue): bool
-    {
-        $sql = "update department set {$setColumn} = ? where {$whereColumn} = ?;";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param("ss", $setValue, $whereValue);
-
-        return $stmt->execute();;
     }
 }

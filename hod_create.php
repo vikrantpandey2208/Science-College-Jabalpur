@@ -1,8 +1,8 @@
 <?php
-require_once("HodClass.php");
-require_once("DepartmentClass.php");
-require_once("EntityClass.php");
-require_once("UniversalClass.php");
+require_once("ClassHod.php");
+require_once("ClassDepartment.php");
+require_once("ClassEntity.php");
+require_once("ClassUniversal.php");
 
 $hodObj = new Hod();
 $deptObj = new Department();
@@ -52,66 +52,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HOD Creation</title>
     <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .container {
-        height: 120vh;
-        width: 100vw;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: aliceblue;
-    }
+        .container {
+            height: 120vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: aliceblue;
+        }
 
-    form {
-        width: 600px;
-        height: 700px;
-        background-color: thistle;
-        /* position: absolute; */
-    }
+        form {
+            width: 600px;
+            height: 700px;
+            background-color: thistle;
+            /* position: absolute; */
+        }
 
-    .heading {
+        .heading {
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    input {
-        width: 330px;
-    }
+        input {
+            width: 330px;
+        }
 
-    label,
-    input {
-        margin: 16px;
-        padding: 5px 20px;
-    }
+        label,
+        input {
+            margin: 16px;
+            padding: 5px 20px;
+        }
 
-    .row {
-        display: flex;
-        justify-content: space-between;
-    }
+        .row {
+            display: flex;
+            justify-content: space-between;
+        }
 
-    .line_11 {
-        height: 50px;
-        padding: 10px;
-        margin: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+        .line_11 {
+            height: 50px;
+            padding: 10px;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    button {
-        height: 30px;
-        width: 250px;
-        border: none;
-        background-color: rgb(71, 151, 255);
-        border-radius: 12px;
-    }
+        button {
+            height: 30px;
+            width: 250px;
+            border: none;
+            background-color: rgb(71, 151, 255);
+            border-radius: 12px;
+        }
     </style>
 </head>
 

@@ -11,24 +11,56 @@
 <body>
     <h3>File for testing the backend</h3>
     <table>
-        <tr>
-            <td>Admin user entry</td>
-            <td><a href="admin_user_entry.php">Click here not ready</a></td>
-            <td>Status Pending</td>
-        </tr>
+
         <tr>
             <td>Add department</td>
             <td><a href="first_page.php">Click here</a></td>
             <td>Status Okay run</td>
         </tr>
-        <tr>
-            <td>Create room</td>
-            <td><a href="room_create.php">Click here</a></td>
-            <td>Status Okay run</td>
-        </tr>
+
         <tr>
             <td>Create Hod</td>
             <td><a href="hod_create.php">Click here</a></td>
+            <td>Status Okay run</td>
+        </tr>
+        <tr>
+            <td>Admin user entry</td>
+            <td><a href="admin_user_entry.php">Click here</a></td>
+            <td>Status okay run</td>
+        </tr>
+        <tr>
+            <td>Hod Login</td>
+            <td><a href="hod_login.php">Click here</a></td>
+            <td>Status Okay run</td>
+        </tr>
+        <tr>
+            <td>===</td>
+            <td>===</td>
+            <td>===</td>
+        </tr>
+        <tr>
+            <td>Create Teacher</td>
+            <td><a href=".php">Click here</a></td>
+            <td>Status Pending</td>
+        </tr>
+        <tr>
+            <td>Teacher entry</td>
+            <td><a href=".php">Click here</a></td>
+            <td>Status Pending</td>
+        </tr>
+        <tr>
+            <td>Teacher Login</td>
+            <td><a href=".php">Click here</a></td>
+            <td>Status Pending</td>
+        </tr>
+        <tr>
+            <td>===</td>
+            <td>===</td>
+            <td>===</td>
+        </tr>
+        <tr>
+            <td>Create room</td>
+            <td><a href="room_create.php">Click here</a></td>
             <td>Status Okay run</td>
         </tr>
     </table>

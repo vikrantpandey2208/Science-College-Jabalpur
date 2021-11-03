@@ -3,56 +3,57 @@ require_once('ClassAdminLogin.php');
 require_once('ClassHod.php');
 require_once('ClassDepartment.php');
 require_once('ClassUniversal.php');
-
 /*
- * Created on Wed Nov 03 2021 4:14:24 pm
+ * Created on Wed Nov 03 2021 9:25:41 pm
  *
- * File Name admin_user_entry.php
+ * File Name hod_login.php
  * ============================================================
  * Program for .....
  * ============================================================
  *
  * Copyright (c) 2021 @Vikrant Pandey
  */
+session_start();
 
 $adminLoginObj = new AdminLogin();
 $hodObj = new Hod();
 $departmentObj = new Department();
 $universal = new Universal();
 
-$nextAdminLoginId = $adminLoginObj->GetNextInsertId();
+function Validate($data)
+{
+    $adminLoginObj = new AdminLogin();
+    $result = 0;
+    if ($adminLoginObj->ReadForLogin($data[0], $data[1], $result)) {
+        $result = $result->fetch_assoc();
 
-$createResult = "";
+        $_SESSION['admin_user_id'] = $result['admin_user_id'];
+        $_SESSION['admin_user_table_id'] = $result['admin_user_table_id'];
+        $_SESSION['admin_user_username'] = $result['admin_user_username'];
+        $_SESSION['admin_user_desc'] = $result['admin_user_desc'];
+
+        return true;
+    } else
+        return false;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = array(
-        $_POST['admin_user_table_id'],
         $_POST['admin_user_username'],
-
-        hash('sha256', $_POST['admin_user_user_password']),
-        $_POST['admin_user_desc']
+        hash('sha256', $_POST['admin_user_user_password'])
 
     );
     if ($_POST['admin_user_create_submit'] && $universal->CheckFormSet($data)) {
-        if ($insert_id = $adminLoginObj->Create($data)) {
-            $createResult = "Admin Login created successful <br>
-                                        Redirecting in 3sec <br>
-                                        Login  Id : " . $insert_id;
-
-            header("refresh:3, url=admin_user_entry.php");
+        if (Validate($data)) {
+            echo "Login Successful redirection in 3 seconds.";
+            header("refresh:3, url=dashboard.php");
         } else {
-            $createResult = "Admin Login creation unsuccessfull <br>
-                                    May be Entry already exists.;";
-            header("refresh:3, url=admin_user_entry.php");
+            echo "Login Failed Bad Credentials redirection in 3 seconds.";
+            header("refresh:3, url=hod_login.php");
         }
     }
 }
-
-
-
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin User Entry</title>
+    <title>Hod Login</title>
     <style>
     * {
         margin: 0;
@@ -131,47 +132,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container">
         <div class="hod_section">
 
-            <form action="admin_user_entry.php" method="POST">
+            <form action="hod_login.php" method="POST">
                 <div class="heading">
 
                     <h3>
-                        Admin User Entry Section
+                        Hod Login
                     </h3>
                 </div>
-                <div class="line_1">
-                    <div class="row">
-                        <label for="hod_id">HoD ID : </label>
-                        <label for="">
-                            <?php echo $nextAdminLoginId; ?>
-                        </label>
-                    </div>
-                </div>
-                <!-- <div class="line_2">
-                    <div class="row">
-                        <label for="admin_user_entity_id">Admin User Entity Id : </label>
-                        <input type="text" name="admin_user_entity_id" id="admin_user_entity_id">
-                    </div>
-                </div> -->
-                <div class="line_3">
-                    <div class="row">
-                        <label for="admin_user_table_id">Admin User Table Id : </label>
-                        <select name="admin_user_table_id" id="admin_user_table_id">
-                            <?php
-                            if ($result = $hodObj->Read("*")) {
-                                while ($row = $result->fetch_assoc()) {
-                                    $deptName = $departmentObj->Read("department_name", "department_id", $row['hod_department_id']);
-                                    $deptName = $deptName->fetch_assoc()['department_name'];
-                                    echo "<option value=\" {$row['hod_id']}\"> {$row['hod_name']} - {$deptName}</option>";
-                                }
-                            }
 
-                            ?>
-                        </select>
-                    </div>
-                </div>
-                <?php
-
-                ?>
                 <div class="line_4">
                     <div class="row">
                         <label for="hod_entity_id">Admin UserName : </label>
@@ -185,13 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
 
-                <div class="line_6">
-                    <div class="row">
-                        <label for="hod_desc">Admin Desectption : </label>
-                        <input type="text" name="admin_user_desc" id="admin_user_desc">
-                        <!-- <textarea name="hod_desc" id="hod_desc" cols="30" rows="10"></textarea> -->
-                    </div>
-                </div>
+
                 <div class="line_7">
                     <div class="row">
 
@@ -203,9 +165,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
             </form>
-            <span>
-                <?php echo $createResult; ?>
-            </span>
         </div>
     </div>
 </body>

@@ -1,5 +1,5 @@
 <?php
-require_once("ConnectionClass.php");
+require_once("ClassConnection.php");
 
 /*
 * Created on Sat Oct 30 2021 2:31:10 pm

@@ -1,5 +1,6 @@
 <?php
-include 'RoomClass.php';
+require_once('ClassRoom.php');
+
 $dept = new Room();
 $nextRoomId = $dept->GetNextInsertId();
 $createResult = "";
@@ -33,74 +34,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room Create</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        .container {
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: aliceblue;
-        }
+    .container {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: aliceblue;
+    }
 
-        form {
-            width: 550px;
-            height: 400px;
-            background-color: thistle;
-            /* position: absolute; */
-        }
+    form {
+        width: 550px;
+        height: 400px;
+        background-color: thistle;
+        /* position: absolute; */
+    }
 
-        form h3 {
-            margin: 1rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    form h3 {
+        margin: 1rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-        label,
-        textarea,
-        input {
-            margin: 16px;
-            padding: 5px 20px;
-        }
+    label,
+    textarea,
+    input {
+        margin: 16px;
+        padding: 5px 20px;
+    }
 
-        input,
-        textarea {
-            width: 300px;
-            /* margin: 15px; */
-            /* position:relative ; */
-            /* left: 40%; */
-            justify-content: space-between;
-        }
+    input,
+    textarea {
+        width: 300px;
+        /* margin: 15px; */
+        /* position:relative ; */
+        /* left: 40%; */
+        justify-content: space-between;
+    }
 
-        .row {
-            display: flex;
-            justify-content: space-between;
+    .row {
+        display: flex;
+        justify-content: space-between;
 
-        }
+    }
 
-        .button {
-            display: flex;
-            justify-content: center;
-            margin-top: 2rem;
-        }
+    .button {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+    }
 
-        .btn {
-            height: 30px;
-            width: 150px;
-            background-color: rgb(71, 151, 255);
-            border-radius: 12px;
-            border: none;
-        }
+    .btn {
+        height: 30px;
+        width: 150px;
+        background-color: rgb(71, 151, 255);
+        border-radius: 12px;
+        border: none;
+    }
 
-        .btn:hover {
-            background-color: cornflowerblue;
-        }
+    .btn:hover {
+        background-color: cornflowerblue;
+    }
     </style>
 </head>
 

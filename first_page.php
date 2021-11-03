@@ -1,5 +1,5 @@
 <?php
-include 'DepartmentClass.php';
+include 'ClassDepartment.php';
 $dept = new Department();
 $nextDepartmentId = $dept->GetNextInsertId();
 $createResult = "";
@@ -33,60 +33,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create department</title>
     <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .container {
-        height: 100vh;
-        width: 100vw;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+        .container {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    form {
-        width: 550px;
-        height: 300px;
-        background-color: thistle;
-        /* position: absolute; */
-    }
+        form {
+            width: 550px;
+            height: 300px;
+            background-color: thistle;
+            /* position: absolute; */
+        }
 
-    label,
-    input {
-        margin: 16px;
-        padding: 5px 20px;
-    }
+        label,
+        input {
+            margin: 16px;
+            padding: 5px 20px;
+        }
 
-    input {
-        /* margin: 15px; */
-        /* position:relative ; */
-        /* left: 40%; */
-        justify-content: space-between;
-    }
+        input {
+            /* margin: 15px; */
+            /* position:relative ; */
+            /* left: 40%; */
+            justify-content: space-between;
+        }
 
-    .row,
-    .row1,
-    .row2,
-    .row3 {
-        display: flex;
-        justify-content: space-between;
+        .row,
+        .row1,
+        .row2,
+        .row3 {
+            display: flex;
+            justify-content: space-between;
 
-    }
+        }
 
-    .row5 {
-        display: flex;
-        justify-content: center;
-    }
+        .row5 {
+            display: flex;
+            justify-content: center;
+        }
 
-    .btn {
-        height: 30px;
-        width: 150px;
-        background-color: rgb(71, 151, 255);
-        border-radius: 12px;
-    }
+        .btn {
+            height: 30px;
+            width: 150px;
+            background-color: rgb(71, 151, 255);
+            border-radius: 12px;
+        }
     </style>
 </head>
 
@@ -112,8 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <div class="row5">
                 <!-- <label for="submit">Click Here For Submit Data -> </label> -->
-                <input class="btn" type="submit" value="Create" name="department_create_submit"
-                    id="department_create_submit">
+                <input class="btn" type="submit" value="Create" name="department_create_submit" id="department_create_submit">
             </div>
 
         </form>

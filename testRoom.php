@@ -1,6 +1,4 @@
 <?php
-include 'RoomClass.php';
+include 'ClassRoom.php';
 
-$dept = new Room();
-
-var_dump($dept->Create(101, "room1", "RoomClass.ph"));
+echo hash('sha256', 'The quick brown fox jumped over the lazy dog.');

@@ -1,13 +1,14 @@
 <?php
-include 'ConnectionClass.php';
+require_once("ClassConnection.php");
 
-class AdminUser
+class Room
 {
     public $connection;
 
     function __construct()
     {
-        $this->connection = Connection();
+        $connectionObj = new ConnectionDb();
+        $this->connection = $connectionObj->Connect();
     }
 
     private function CheckRedundancy(&$roomNumber, &$roomName)
@@ -24,6 +25,7 @@ class AdminUser
         } else
             return false;
     }
+
     public function Create($roomNumber, $roomName, $roomDescription)
     {
 

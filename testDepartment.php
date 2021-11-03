@@ -1,5 +1,5 @@
 <?php
-include 'DepartmentClass.php';
+include 'ClassDepartment.php';
 
 $dept = new Department();
 // $dept->Create("Vikrant Pandey", "VjP");
