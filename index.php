@@ -40,17 +40,17 @@
         </tr>
         <tr>
             <td>Create Teacher</td>
-            <td><a href=".php">Click here</a></td>
-            <td>Status Pending</td>
+            <td><a href="create_teacher.php">Click here</a></td>
+            <td>Status Okay Run</td>
         </tr>
         <tr>
             <td>Teacher entry</td>
-            <td><a href=".php">Click here</a></td>
-            <td>Status Pending</td>
+            <td><a href="staff_create_login.php">Click here</a></td>
+            <td>Status Okay Run</td>
         </tr>
         <tr>
             <td>Teacher Login</td>
-            <td><a href=".php">Click here</a></td>
+            <td><a href="teacher_login.php">Click here</a></td>
             <td>Status Pending</td>
         </tr>
         <tr>
@@ -61,6 +61,21 @@
         <tr>
             <td>Create room</td>
             <td><a href="room_create.php">Click here</a></td>
+            <td>Status Okay run</td>
+        </tr>
+        <tr>
+            <td>Create Class</td>
+            <td><a href="class_create.php">Click here</a></td>
+            <td>Status Okay run</td>
+        </tr>
+        <tr>
+            <td>Create Subject</td>
+            <td><a href="subject_create.php">Click here</a></td>
+            <td>Status Okay run</td>
+        </tr>
+        <tr>
+            <td>Print Table</td>
+            <td><a href="print_teacher.php">Click here</a></td>
             <td>Status Okay run</td>
         </tr>
     </table>

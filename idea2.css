@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* header {
+  background: brown;
+  height: 30vh;
+} */
+/* footer {
+  background: chocolate;
+  height: 30vh;
+
+  bottom: 0;
+} */
+section.table_section {
+  /* background: rgb(88, 135, 223); */
+  /* height: 100vh; */
+  
+}
+section.table_section .container, /*iskko mita sakte hai*/
+section.table_section .table_full_data {
+  padding: 0 5rem;
+  background: rgb(205, 225, 252);
+  /* background: rgb(88, 135, 223); */
+}
+.table_section_heading {
+  /* height: 15vh; */
+  text-align: center;
+  font-family: sans-serif;
+  color: black;
+    /* background-color: rgb(214, 233, 236); */
+}
+.table_section_heading h1 {
+  /* background: chartreuse; */
+  /* background: powderblue; */
+  line-height: 1.4;
+  font-weight: 600;
+  /* padding: 10px; */
+  
+}
+.table_section_heading p {
+  font-weight: 400;
+  line-height: 1.2;
+  font-family: cursive;
+  font-size: 0.8rem;
+}
+/* .table_structure {
+  background: darkmagenta;
+} */
+/* .table_content {
+  background: hotpink;
+  display:table;
+} */
+/* .table_heading {
+  background: rgb(57, 59, 57);
+} */
+/* .table_body {
+  background: lightgreen;
+} */
+
+.table_content {
+  border-collapse: collapse;
+  margin: 2rem auto;
+  font-size: 1rem;
+  /* min-width: 400px; */
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.151);
+}
+.table_content thead tr {
+  background-color: #0c745f;
+  background-color: #1e72c0;
+  color: #ffffff;
+  /* text-align: left; */
+  font-weight: bold;
+}
+.table_content th,
+.table_content td {
+  padding: 8px 60px;
+  text-align: center;
+}
+.table_content tbody tr {
+  border-bottom: 1px solid #2c2b2b;
+}
+.table_content tbody tr:nth-of-type(even) {
+  background-color: rgb(213, 223, 255);
+  
+}
+.table_content tbody tr:nth-of-type(odd) {
+  background-color: rgb(210, 220, 248);
+  background-color: white;
+}
+.table_content tbody tr:hover {
+  background-color: #a5c9e6;
+  cursor: pointer; 
+}
+.table_content tbody tr:last-of-type {
+  border-bottom: 3px solid #1e72c0;
+}
+
+
+
+
+
+
+
+.display_text {
+  /* background: olivedrab; */
+  text-align: center;
+}
+.display_text p{
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-family:sans-serif ;
+}
+.display_text button{
+    padding: 5px 30px;
+    border-radius: 30px;
+    border-style: none;
+    background-color: rgb(52, 93, 228);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all .2s ease;
+    margin-bottom: 2rem;
+}
+.display_text button:hover{
+    background-color: rgb(19, 53, 202);
+    color: white;    
+}
