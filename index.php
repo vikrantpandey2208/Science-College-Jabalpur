@@ -51,7 +51,7 @@
         <tr>
             <td>Teacher Login</td>
             <td><a href="teacher_login.php">Click here</a></td>
-            <td>Status Pending</td>
+            <td>Status On run</td>
         </tr>
         <tr>
             <td>===</td>
@@ -77,6 +77,31 @@
             <td>Print Table</td>
             <td><a href="print_teacher.php">Click here</a></td>
             <td>Status Okay run</td>
+        </tr>
+        <tr>
+            <td>Level -1 time table</td>
+            <td><a href="level1_form_1.php">Click here</a></td>
+            <td>Okay on run</td>
+        </tr>
+        <tr>
+            <td>Principal login</td>
+            <td><a href="principalLogin.php">Click here</a></td>
+            <td>Status ok on run</td>
+        </tr>
+        <tr>
+            <td>===</td>
+            <td>===</td>
+            <td>===</td>
+        </tr>
+        <tr>
+            <td>Fetch level 1 XL</td>
+            <td><a href="level1Xl.php">Click here</a></td>
+            <td>Status working</td>
+        </tr>
+        <tr>
+            <td>Fire class wise Level 1</td>
+            <td><a href="fireClassL1.php">Click here</a></td>
+            <td>Status working</td>
         </tr>
     </table>
 </body>

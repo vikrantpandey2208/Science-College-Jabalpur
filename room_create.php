@@ -13,10 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $createResult = "Room created successful <br>
                                         Redirecting in 3sec <br>
                                         Room Id : " . $insert_id;
-                header("refresh:3, url=room_create.php");
+                header("refresh:2, url=room_create.php");
             } else {
                 $createResult = "Room creation unsuccessfull <br>
                                     May be Room already exists.;";
+                header("refresh:2, url=room_create.php");
             }
             unset($_POST['room_name']);
         }
