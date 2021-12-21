@@ -32,11 +32,15 @@ class AdminLogin
         $this->connection = $connectionObj->Connect();
     }
 
-    public function ReadForLogin($userName, $password, &$result)
-    {
+    public function ReadForLogin($userName, $password, &$result, $principal = false) {
         $connection = $this->connection;
         $sql = "select * from admin_user where admin_user_username =? and 
                                 admin_user_user_password = ?  ;";
+
+        if ($principal) {
+            $sql = "select * from super_user where super_username =? and
+                                super_password = ?  ;";
+        }
 
         $stmt = $connection->prepare($sql);
         $stmt->bind_param("ss", $userName, $password);
