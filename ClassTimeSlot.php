@@ -22,6 +22,30 @@ class TimeSlot {
         $this->connection = $connectionObj->Connect();
     }
 
+    public function DecodeSlot($slotId, $selection, $periodName = null) {
+        if (isset($periodName)) {
+            $tempResult = $this->Read("timeslot_name", "timeslot_id", $slotId);
+            $row = $tempResult->fetch_assoc();
+            return $row['timeslot_name'];
+        }
+        // selection = 0 for start and 1 for end
+        switch ($selection) {
+            case 0: {
+                    $tempResult = $this->Read("timeslot_start", "timeslot_id", $slotId);
+                    $row = $tempResult->fetch_assoc();
+                    return $row['timeslot_start'];
+                    break;
+                }
+            case 1: {
+                    $tempResult = $this->Read("timeslot_end", "timeslot_id", $slotId);
+                    $row = $tempResult->fetch_assoc();
+                    return $row['timeslot_end'];
+                    break;
+                }
+        }
+        
+    }
+
     public function Read($column, $whereColumn = "", $whereValue = "", $multiColumn = false) {
         $connection = $this->connection;
         if ($multiColumn) {

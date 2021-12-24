@@ -3,29 +3,35 @@ require_once('ClassLevel1.php');
 require_once('ClassTable.php');
 require_once('ClassPrintLevel1.php');
 require_once('ClassClass.php');
-
+require_once('ClassWeekDay.php');
 /*
- * Created on Mon Dec 20 2021 3:31:04 pm
+ * Created on Fri Dec 24 2021 10:12:44 pm
  *
- * File Name fireClassL1.php
+ * File Name fireClassDayWise.php
  * ============================================================
  * Program for .....
  * ============================================================
  *
  * Copyright (c) 2021 @Vikrant Pandey
  */
+
 $level1Obj = new Level1();
 $tableObj = new Table();
 $printObj = new ClassPrintLevel1();
 $classObj = new Classes();
+$dayObj = new WeekDay();
 
 $table = array();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  $_POST['class_submit'] && isset($_POST['class_id'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  $_POST['class_submit'] && isset($_POST['class_id']) && isset($_POST['day_id'])) {
 
     $classId = $_POST['class_id'];
-    $result = $level1Obj->Read("all", "level1_class_id", $classId);
-    $table[] = $printObj->ArrayOfRowData($classObj->DecodeClass($classId), $result);
+    $dayId = $_POST['day_id'];
+    $sql = "select * from level1 where level1_class_id = " . $classId
+        . " and level1_day_ids like '%" . $dayId . "%'";
+    echo $sql;
+    $result = $level1Obj->ReadCustomSql($sql);
+    $table[] = $printObj->ArrayOfRowData($classObj->DecodeClass($classId), $result, false);
 }
 
 ?>
@@ -38,11 +44,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  $_POST['class_submit'] && isset($_
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="idea2.css">
-    <title>Fire Class Wise</title>
+    <title>Fire Class Day Wise</title>
 </head>
 
 <body>
-    <form action="fireClassL1.php" method="POST">
+    <form action="fireClassDayWise.php" method="POST">
         <div class="heading">
             <h3>
                 Class Selection
@@ -58,6 +64,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  $_POST['class_submit'] && isset($_
                         echo "<option disabled selected>Select Class </option>";
                         while ($row = $result->fetch_assoc()) {
                             echo "<option value=\"{$row['class_id']}\">{$row['class_name']} - {$row['class_section']}</option>";
+                        }
+                    }
+
+                    ?>
+                </select>
+            </div>
+        </div>
+        <div class="line2">
+            <div class="row">
+                <label for="day_id">Day : </label>
+                <select name="day_id" id="day_id">
+                    <?php
+                    if ($result = $dayObj->Read("*")) {
+                        echo "<option disabled selected>Select Day </option>";
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<option value=\"{$row['weekday_id']}\">{$row['weekday_name']}</option>";
                         }
                     }
 

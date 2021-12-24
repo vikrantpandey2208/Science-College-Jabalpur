@@ -1,28 +1,40 @@
 <?php
+
 require_once("ClassConnection.php");
 /*
- * Created on Sat Dec 18 2021 12:16:06 pm
- *
- * File Name ClassLevelGroup.php
- * ============================================================
- * Program for .....
- * ============================================================
- *
- * Copyright (c) 2021 @Vikrant Pandey
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 
-class LevelGroup
-{
+/**
+ * Description of ClassWeekDay
+ *
+ * @author user
+ */
+class WeekDay {
+
     public $connection;
 
-    function __construct()
-    {
+    function __construct() {
         $connectionObj = new ConnectionDb();
         $this->connection = $connectionObj->Connect();
     }
 
-    public function Read($column, $whereColumn = "", $whereValue = "", $multiColumn = false)
-    {
+    public function DecodeWeekday($dayId) {
+        $dayId = (string) $dayId;       // parsing to string
+
+        $returnString = " ";
+
+        for ($i = 0; $i < strlen($dayId); $i++) {
+            $tempResult = $this->Read("weekday_code", "weekday_id", $dayId[$i]);
+            $row = $tempResult->fetch_assoc();
+            $returnString .= " " . $row['weekday_code'];
+        }
+        return $returnString;
+    }
+
+    public function Read($column, $whereColumn = "", $whereValue = "", $multiColumn = false) {
         $connection = $this->connection;
         if ($multiColumn) {
 
@@ -32,7 +44,7 @@ class LevelGroup
             }
 
             $sql = rtrim($sql, ", ");
-            $sql .= " from level_group where {$whereColumn}  = ?;";
+            $sql .= " from weekday where {$whereColumn}  = ? ;";
             $stmt = $connection->prepare($sql);
             $stmt->bind_param("s", $whereValue);
         } else {
@@ -40,17 +52,17 @@ class LevelGroup
 
             switch ($column) {
                 case '*': {
-                        $stmt = $connection->prepare("select * from level_group;");
+                        $stmt = $connection->prepare("select * from weekday;");
                         break;
                     }
                 case 'all': {
-                        $sql = "select * from level_group where {$whereColumn}  = ? order by desc;";
+                        $sql = "select * from weekday where {$whereColumn}  = ? ;";
                         $stmt = $connection->prepare($sql);
                         $stmt->bind_param("s", $whereValue);
                         break;
                     }
                 default: {
-                        $sql = "select {$column} from level_group where {$whereColumn} = ? ;";
+                        $sql = "select {$column} from weekday where {$whereColumn} = ? ;";
                         $stmt = $connection->prepare($sql);
                         $stmt->bind_param("s", $whereValue);
                         break;
@@ -65,4 +77,5 @@ class LevelGroup
             return false;
         }
     }
+
 }

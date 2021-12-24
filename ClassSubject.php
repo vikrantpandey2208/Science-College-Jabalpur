@@ -22,6 +22,12 @@ class Subject
         $this->connection = $connectionObj->Connect();
     }
 
+    public function DecodeSubject($subjectId) {
+        $tempResult = $this->Read("subject_name", "subject_id", $subjectId);
+        $row = $tempResult->fetch_assoc();
+        return $row['subject_name'];
+    }
+
     public function Read($column, $whereColumn = "", $whereValue = "", $multiColumn = false)
     {
         $connection = $this->connection;

@@ -96,11 +96,31 @@
         <tr>
             <td>Fetch level 1 XL</td>
             <td><a href="level1Xl.php">Click here</a></td>
-            <td>Status working</td>
+            <td>Status ok on run</td>
         </tr>
         <tr>
             <td>Fire class wise Level 1</td>
             <td><a href="fireClassL1.php">Click here</a></td>
+            <td>Status ok on run</td>
+        </tr>
+        <tr>
+            <td>Fire Time Slot Wise Level 1</td>
+            <td><a href="fireSlotWise.php">Click here</a></td>
+            <td>Status ok on run</td>
+        </tr>
+        <tr>
+            <td>Fire Day Wise Level 1</td>
+            <td><a href="fireDayWise.php">Click here</a></td>
+            <td>Status ok on run</td>
+        </tr>
+        <tr>
+            <td>Fire Slot Day Wise Level 1</td>
+            <td><a href="fireSlotDayWise.php">Click here</a></td>
+            <td>Status On run</td>
+        </tr>
+        <tr>
+            <td>Fire Class Day Wise Level 1</td>
+            <td><a href="fireClassDayWise.php">Click here</a></td>
             <td>Status working</td>
         </tr>
     </table>

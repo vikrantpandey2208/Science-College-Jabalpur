@@ -77,7 +77,7 @@ section.table_section .table_full_data {
 }
 .table_content th,
 .table_content td {
-  padding: 8px 60px;
+  padding: 28px;
   text-align: center;
 }
 .table_content tbody tr {

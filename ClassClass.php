@@ -1,4 +1,5 @@
 <?php
+
 require_once("ClassConnection.php");
 /*
  * Created on Fri Nov 05 2021 8:16:01 pm
@@ -12,25 +13,29 @@ require_once("ClassConnection.php");
  */
 
 /*
- 1. public Create($hodNumber, $hodName, $hodDescription)
- 2. Read
- 3. GetNextInsertId
+  1. public Create($hodNumber, $hodName, $hodDescription)
+  2. Read
+  3. GetNextInsertId
 
 
  */
 
-class Classes
-{
+class Classes {
+
     public $connection;
 
-    function __construct()
-    {
+    function __construct() {
         $connectionObj = new ConnectionDb();
         $this->connection = $connectionObj->Connect();
     }
 
-    public function Read($column, $whereColumn = "", $whereValue = "", $multiColumn = false)
-    {
+    public function DecodeClass($classId) {
+        $tempResult = $this->Read("all", "class_id", $classId);
+        $row = $tempResult->fetch_assoc();
+        return $row['class_name'] . " " . $row['class_section'];
+    }
+
+    public function Read($column, $whereColumn = "", $whereValue = "", $multiColumn = false) {
         $connection = $this->connection;
         if ($multiColumn) {
 
@@ -74,8 +79,7 @@ class Classes
         }
     }
 
-    public function Create($data)
-    {
+    public function Create($data) {
         if ($this->CheckRedundancy($data[2], $data[3], $data[4])) {
             return false;
         }
@@ -90,8 +94,7 @@ class Classes
             return false;
     }
 
-    private function CheckRedundancy(&$name, &$section, &$year)
-    {
+    private function CheckRedundancy(&$name, &$section, &$year) {
         $sql = "select class_id from class
                  where class_name = ? and class_section= ? and class_year = ? ; ";
         $stmt = $this->connection->prepare($sql);
@@ -105,16 +108,17 @@ class Classes
         } else
             return false;
     }
-    public function GetNextInsertId()
-    {
+
+    public function GetNextInsertId() {
         $connection = $this->connection;
         $sql = "select Max(class_id) from class ;";
-        $result =  $connection->query($sql);
+        $result = $connection->query($sql);
 
         if ($result->num_rows > 0) {
-            return ((int)$result->fetch_assoc()['Max(class_id)']) + 1;
+            return ((int) $result->fetch_assoc()['Max(class_id)']) + 1;
         } else {
             return false;
         }
     }
+
 }

@@ -10,6 +10,13 @@ class Room
         $connectionObj = new ConnectionDb();
         $this->connection = $connectionObj->Connect();
     }
+
+    public function DecodeRoom($roomId) {
+        $tempResult = $this->Read("room_number", "room_id", $roomId);
+        $row = $tempResult->fetch_assoc();
+        return $row['room_number'];
+    }
+
     public function Read($column, $whereColumn = "", $whereValue = "", $multiColumn = false)
     {
         $connection = $this->connection;

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Created on Fri Nov 05 2021 9:04:11 pm
  *
@@ -11,16 +12,14 @@
  */
 
 /*
- 1. Print table()
+  1. Print table()
 
 
  */
 
-class Table
-{
+class Table {
 
-    function Print(&$result, $head, $script)
-    {
+    function PrintResultSet(&$result, $head, $script) {
         echo '<table class="table_content">
             <thead class="table_heading">
             <tr class="heading_row"> ';
@@ -41,4 +40,29 @@ class Table
         }
         echo "</tbody></table>";
     }
+
+    function Print($head, $table) {
+        echo '<table class="table_content">
+            <thead class="table_heading">
+            <tr class="heading_row"> ';
+
+        foreach ($head as $heading) {
+            echo "<th>{$heading}</th>";
+        }
+
+        echo '</tr>
+            </thead>
+            <tbody class="table_body">';
+
+        foreach ($table as $tableRow) {
+            foreach ($tableRow as $item) {
+                echo "<td>{$item}</td>";
+            }
+            echo '</tr>';
+        }
+        
+
+        echo "</tbody></table>";
+    }
+
 }
